@@ -1,0 +1,13 @@
+{
+    "name": "rafaeljuniordasilvac/composer",
+    "description": "Geracao PDF",
+    "authors": [
+        {
+            "name": "Rafael Cesco",
+            "email": "rafa.cesco@gmail.com"
+        }
+    ],
+    "require": {
+        "mpdf/mpdf": "^7.1"
+    }
+}
