@@ -70,6 +70,9 @@ class user_controller extends Controller
     }
   }
 
+  public function store(){
+    $this->view('user/store');
+  }
 }
 
 

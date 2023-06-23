@@ -4,16 +4,16 @@
 abstract class db
 {
   private static $host = "mysql.hostinger.com.br";
-  private static $dbname = "u935454432_depalexandre";
-  private static $user = "u935454432_depalexandre";
-  private static $password = "NFq/jg+4I";
+  private static $dbname = "u390472747_tsi";
+  private static $user = "u390472747_tsi";
+  private static $password = "TfBc@3TAZa[2";
   private static $cnx;
 
   private static function setConn()
   {
     try {
       if (is_null(db::$cnx)) {
-        db::$cnx = new PDO('mysql:host=mysql.hostinger.com.br;dbname=u935454432_depalexandre', 'u935454432_depalexandre', 'NFq/jg+4I', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        db::$cnx = new PDO('mysql:host=mysql.hostinger.com.br;dbname=u390472747_tsi', 'u390472747_tsi', 'TfBc@3TAZa[2', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         return db::$cnx;
       } else {
         return db::$cnx;

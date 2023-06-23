@@ -117,7 +117,7 @@ class model extends db
       return $qtd;
    }
 
-   public static function countField($table, $stament, $alias = '', $field, $params = null)
+   public static function countField($table, $stament, $alias, $field, $params = null)
    {
       $prep = "SELECT COUNT( " . $alias . $field." ) as qtd FROM " . $table . " " . $stament;
       //var_dump($prep);
