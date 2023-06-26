@@ -191,9 +191,16 @@ class Transporter_Model
 
   public function store()
   {
-    $table = '';
-    $statement = '';
-    $params = [];
+    $table = 'transporter';
+    $statement = '
+      name = ?, document = ?, zip_code = ?, address = ?, number = ?, complement = ?, district = ?, city = ?,
+      state = ?, phone = ?, latitude = ?, longitude = ?, note = ? 
+    ';
+    $params = [
+      $this->name, $this->document, $this->zip_code, $this->address, $this->number, $this->complement,
+      $this->district, $this->city, $this->state, $this->phone, $this->phone, $this->latitude,
+      $this->longitude, $this->note
+    ];
 
     $q = model::insert($table, $statement, $params);
 
@@ -207,23 +214,36 @@ class Transporter_Model
 
   public function select()
   {
-    $fields = '';
-    $table = '';
-    $statement = '';
-    $params = [];
+    $fields = '*';
+    $table = 'transporter';
+    $statement = 'where id = ?';
+    $params = [$this->id];
 
     $q = model::select($fields, $table, $statement, $params);
 
     while ($r = $q->fetch(PDO::FETCH_ASSOC)) {
+      $this->name = $r['name'];
+      $this->document = $r['document'];
+      $this->zip_code = $r['zip_code'];
+      $this->address = $r['address'];
+      $this->number = $r['number'];
+      $this->complement = $r['complement'];
+      $this->district = $r['district'];
+      $this->city = $r['city'];
+      $this->state = $r['state'];
+      $this->phone = $r['phone'];
+      $this->latitude = $r['latitude'];
+      $this->longitude = $r['longitude'];
+      $this->note = $r['note'];
     }
 
   }
 
   public function listing()
   {
-    $fields = '';
-    $table = '';
-    $statement = '';
+    $fields = '*';
+    $table = 'transporter';
+    $statement = 'where 1';
     $params = [];
 
     $q = model::select($fields, $table, $statement, $params);
@@ -231,23 +251,47 @@ class Transporter_Model
     $res = [];
 
     while ($r = $q->fetch(PDO::FETCH_ASSOC)) {
-      $res[] = [];
+      $res[] = [
+        'id' => $r['id'],
+        'name' => $r['name'],
+        'document' => $r['document'],
+        'zip_code' => $r['zip_code'],
+        'address' => $r['address'],
+        'number' => $r['number'],
+        'complement' => $r['complement'],
+        'district' => $r['district'],
+        'city' => $r['city'],
+        'state' => $r['state'],
+        'phone' => $r['phone'],
+        'latitude' => $r['latitude'],
+        'longitude' => $r['longitude'],
+        'note' => $r['note'],
+      ];
     }
     return $res;
   }
 
   public function update()
   {
-    $table = '';
-    $statement = '';
-    $where = '';
-    $params = [];
+    $table = 'transporter';
+    $statement = '
+      name = ?, document = ?, zip_code = ?, address = ?, number = ?, complement = ?, district = ?, city = ?,
+      state = ?, phone = ?, latitude = ?, longitude = ?, note = ?, updated_at = CURRENT_TIMESTAMP
+    ';
+    $where = ' where id = ? ';
+    $params = [
+      $this->name, $this->document, $this->zip_code, $this->address, $this->number, $this->complement,
+      $this->district, $this->city, $this->state, $this->phone, $this->latitude,
+      $this->longitude, $this->note, $this->id
+    ];
 
     $q = model::update($table, $statement, $params, $where);
 
     if ($q) {
+      http_response_code(200);
       return true;
     } else {
+      http_response_code(400);
       return false;
     }
 
@@ -255,9 +299,9 @@ class Transporter_Model
 
   public function delete()
   {
-    $table = '';
-    $statement = '';
-    $params = [];
+    $table = 'transporter';
+    $statement = ' where id = ? ';
+    $params = [$this->id];
 
     $q = model::delete($table, $statement, $params);
 
