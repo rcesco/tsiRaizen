@@ -3,7 +3,7 @@
 class transporter_controller extends Controller
 {
   public function index(){
-    $this->view('transporter/store');
+    $this->view('transporter/list');
   }
 
   public function store(){
@@ -28,7 +28,14 @@ class transporter_controller extends Controller
     $t->setLongitude($values['longitude']);
     $t->setNote($values['note']);
 
-    $t->store();
+    if($values['idtransporter'] > 0 ){
+      $t->setId($values['idtransporter']);
+    }else if (isset($values['document'])){
+      $t->store();
+    }else{
+      $this->view('transporter/store');
+    }
+
   }
 
   public function listing(){

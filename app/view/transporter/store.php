@@ -24,13 +24,19 @@ require_once VIEW . 'header.php';
         <div class="live-preview">
           <form>
             <div class="row gy-4">
+              <div class="col-md-1">
+                <div>
+                  <label for="name" class="form-label">ID</label>
+                  <input type="text" class="form-control" id="idtransporter" onchange="handleFormValues(this)" required readonly>
+                </div>
+              </div>
               <div class="col-md-6">
                 <div>
                   <label for="name" class="form-label">Nome</label>
                   <input type="text" class="form-control" id="name" onchange="handleFormValues(this)" required>
                 </div>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-2">
                 <div>
                   <label for="name" class="form-label">CNPJ</label>
                   <input type="text" class="form-control" id="document" onchange="handleFormValues(this)" required>

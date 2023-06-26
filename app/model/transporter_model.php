@@ -198,7 +198,7 @@ class Transporter_Model
     ';
     $params = [
       $this->name, $this->document, $this->zip_code, $this->address, $this->number, $this->complement,
-      $this->district, $this->city, $this->state, $this->phone, $this->phone, $this->latitude,
+      $this->district, $this->city, $this->state, $this->phone, $this->latitude,
       $this->longitude, $this->note
     ];
 
