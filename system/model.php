@@ -47,7 +47,7 @@ class model extends db
          //var_dump($params);
          //exit();
 
-         model::gerarLog($table, "insert", $statement, $params);
+         //model::gerarLog($table, "insert", $statement, $params);
 
 
          return model::prepExec($prep, $params);
@@ -161,7 +161,7 @@ class model extends db
       //var_dump($params);
 
       //exit();
-      model::gerarLog($table, "update", $statement, $params);
+      //model::gerarLog($table, "update", $statement, $params);
       return model::prepExec($prep, $params);
    }
 
@@ -172,7 +172,7 @@ class model extends db
       //var_dump($prep);
       //var_dump($params);
       //exit;
-      model::gerarLog($table, "delete", $statement, $params);
+      //model::gerarLog($table, "delete", $statement, $params);
       return model::prepExec($prep, $params);
    }
 

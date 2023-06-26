@@ -27,13 +27,13 @@ require_once VIEW . 'header.php';
               <div class="col-md-6">
                 <div>
                   <label for="name" class="form-label">Nome</label>
-                  <input type="text" class="form-control" id="name" onchange="handleFormValues(this)" value="">
+                  <input type="text" class="form-control" id="name" onchange="handleFormValues(this)" required>
                 </div>
               </div>
               <div class="col-md-3">
                 <div>
                   <label for="name" class="form-label">CNPJ</label>
-                  <input type="text" class="form-control" id="document" onchange="handleFormValues(this)">
+                  <input type="text" class="form-control" id="document" onchange="handleFormValues(this)" required>
                 </div>
               </div>
               <div class="col-md-3">
@@ -41,7 +41,7 @@ require_once VIEW . 'header.php';
                   <label for="name" class="form-label">CEP</label>
                   <div class="input-group">
                     <input type="text" class="form-control" aria-label="Zip Code" id="zip_code" onchange="handleFormValues(this)"
-                           aria-describedby="searchZIP">
+                           aria-describedby="searchZIP" required>
                     <button class="btn btn-secondary" type="button" id="searchZIP" onclick="getAddressData()">
                       <i class="ri-search-line"></i>
                     </button>
@@ -51,70 +51,69 @@ require_once VIEW . 'header.php';
               <div class="col-md-6">
                 <div>
                   <label for="name" class="form-label">Endereço</label>
-                  <input type="text" class="form-control" id="address">
+                  <input type="text" class="form-control" id="address" onchange="handleFormValues(this)" required>
                 </div>
               </div>
               <div class="col-md-2">
                 <div>
                   <label for="name" class="form-label">Número</label>
-                  <input type="text" class="form-control" id="number">
+                  <input type="text" class="form-control" id="number" onchange="handleFormValues(this)">
                 </div>
               </div>
               <div class="col-md-4">
                 <div>
                   <label for="name" class="form-label">Complemento</label>
-                  <input type="text" class="form-control" id="complement">
+                  <input type="text" class="form-control" id="complement" onchange="handleFormValues(this)">
                 </div>
               </div>
               <div class="col-md-4">
                 <div>
                   <label for="name" class="form-label">Bairro</label>
-                  <input type="text" class="form-control" id="district">
+                  <input type="text" class="form-control" id="district" onchange="handleFormValues(this)" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div>
                   <label for="name" class="form-label">Cidade</label>
-                  <input type="text" class="form-control" id="city">
+                  <input type="text" class="form-control" id="city" onchange="handleFormValues(this)" required>
                 </div>
               </div>
               <div class="col-md-2">
                 <div>
                   <label for="name" class="form-label">Estado</label>
-                  <input type="text" class="form-control" id="state">
+                  <input type="text" class="form-control" id="state" onchange="handleFormValues(this)" required>
                 </div>
               </div>
               <div class="col-md-4">
                 <div>
                   <label for="name" class="form-label">Celular</label>
-                  <input type="text" class="form-control" id="phone">
+                  <input type="text" class="form-control" id="phone" onchange="handleFormValues(this)">
                 </div>
               </div>
               <div class="col-md-4">
                 <div>
                   <label for="name" class="form-label">Latitude</label>
-                  <input type="text" class="form-control" id="latitude">
+                  <input type="text" class="form-control" id="latitude" onchange="handleFormValues(this)">
                 </div>
               </div>
               <div class="col-md-4">
                 <div>
                   <label for="name" class="form-label">Longitude</label>
-                  <input type="text" class="form-control" id="longitude">
+                  <input type="text" class="form-control" id="longitude" onchange="handleFormValues(this)">
                 </div>
               </div>
               <div class="col-md-12">
                 <div>
                   <label for="name" class="form-label">Observações</label>
-                  <textarea class="form-control" id="note"></textarea>
+                  <textarea class="form-control" id="note" onchange="handleFormValues(this)"></textarea>
                 </div>
               </div>
-
             </div>
             <div class="row gy-4">
               <p class="text-muted"></p>
               <div class="live-preview">
                 <div class="d-flex flex-wrap gap-2">
-                  <button type="button" class="btn btn-primary waves-effect waves-light">Cadastrar</button>
+                  <button type="button" class="btn btn-primary waves-effect waves-light" onclick="store()">Cadastrar</button>
                   <button type="button" class="btn btn-warning waves-effect waves-light">Limpar</button>
                   <button type="button" class="btn btn-info waves-effect waves-light">Voltar</button>
                 </div>
@@ -162,8 +161,8 @@ require_once VIEW . 'footer.php';
 
   function store() {
     const options = {
-      method: 'get',
-      url: SERVER + 'user/store',
+      method: 'post',
+      url: SERVER + 'transporter/store',
       headers: {
         'Content-Type': 'application/json'
       },

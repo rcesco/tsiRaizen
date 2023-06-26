@@ -50,6 +50,10 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
+<script>
+  const SERVER = "http://localhost:8080/";
+</script>
+
 <!-- App js -->
 <script src="<?= DIR_ASSETS ?>js/app.js"></script>
 </body>

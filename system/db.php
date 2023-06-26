@@ -13,7 +13,7 @@ abstract class db
   {
     try {
       if (is_null(db::$cnx)) {
-        db::$cnx = new PDO('mysql:host=mysql.hostinger.com.br;dbname=u390472747_tsi', 'u390472747_tsi', 'TfBc@3TAZa[2', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        db::$cnx = new PDO('mysql:host=srv795.hstgr.io;dbname=u390472747_tsi', 'u390472747_tsi', 'TfBc@3TAZa[2', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         return db::$cnx;
       } else {
         return db::$cnx;
