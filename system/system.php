@@ -35,8 +35,8 @@
       //print_r($this->_explode);
       if(isset($this->_explode[1]) && is_numeric($this->_explode[1]) && $this->_explode[1] > 0 ){
         $ac = 'index';
-        $this->_explode[3] = 'id';
-        $this->_explode[3] = $this->_explode[2];
+        $this->_explode[2] = 'id';
+        $this->_explode[3] = $this->_explode[1];
       }
       else if(!isset($this->_explode[1]) || $this->_explode[1] == null){
         $ac = 'index';

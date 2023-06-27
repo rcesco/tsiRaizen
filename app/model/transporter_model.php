@@ -205,7 +205,7 @@ class Transporter_Model
     $q = model::insert($table, $statement, $params);
 
     if ($q) {
-      return true;
+      return model::lastId('transporter');
     } else {
       return false;
     }
@@ -221,6 +221,8 @@ class Transporter_Model
 
     $q = model::select($fields, $table, $statement, $params);
 
+    $res = [];
+
     while ($r = $q->fetch(PDO::FETCH_ASSOC)) {
       $this->name = $r['name'];
       $this->document = $r['document'];
@@ -235,8 +237,25 @@ class Transporter_Model
       $this->latitude = $r['latitude'];
       $this->longitude = $r['longitude'];
       $this->note = $r['note'];
-    }
 
+      $res = [
+        'idtransporter' => $r['idtransporter'],
+        'name' => $r['name'],
+        'document' => $r['document'],
+        'zip_code' => $r['zip_code'],
+        'address' => $r['address'],
+        'number' => $r['number'],
+        'complement' => $r['complement'],
+        'district' => $r['district'],
+        'city' => $r['city'],
+        'state' => $r['state'],
+        'phone' => $r['phone'],
+        'latitude' => $r['latitude'],
+        'longitude' => $r['longitude'],
+        'note' => $r['note'],
+      ];
+    }
+    return $res;
   }
 
   public function listing()
