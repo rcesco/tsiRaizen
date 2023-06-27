@@ -216,7 +216,7 @@ class Transporter_Model
   {
     $fields = '*';
     $table = 'transporter';
-    $statement = 'where id = ?';
+    $statement = 'where idtransporter = ?';
     $params = [$this->id];
 
     $q = model::select($fields, $table, $statement, $params);
@@ -252,7 +252,7 @@ class Transporter_Model
 
     while ($r = $q->fetch(PDO::FETCH_ASSOC)) {
       $res[] = [
-        'id' => $r['id'],
+        'idtransporter' => $r['idtransporter'],
         'name' => $r['name'],
         'document' => $r['document'],
         'zip_code' => $r['zip_code'],
@@ -278,7 +278,7 @@ class Transporter_Model
       name = ?, document = ?, zip_code = ?, address = ?, number = ?, complement = ?, district = ?, city = ?,
       state = ?, phone = ?, latitude = ?, longitude = ?, note = ?, updated_at = CURRENT_TIMESTAMP
     ';
-    $where = ' where id = ? ';
+    $where = ' where idtransporter = ? ';
     $params = [
       $this->name, $this->document, $this->zip_code, $this->address, $this->number, $this->complement,
       $this->district, $this->city, $this->state, $this->phone, $this->latitude,
