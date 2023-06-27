@@ -9,7 +9,7 @@ require_once VIEW . 'header.php';
         <h5 class="card-title mb-0">Transportadores Cadastrados</h5>
       </div>
       <div class="card-body">
-        <table class="dataTables_wrapper dt-bootstrap5 no-footer" id="transporterTable">
+        <table class="table table-bordered dt-responsive nowrap table-striped align-middle" id="transporterTable">
           <thead>
             <th>ID</th>
             <th>Nome</th>
@@ -82,7 +82,7 @@ require_once VIEW . 'footer.php';
         {data: "document"},
         {data: "city"},
         {data: "state"},
-        {data: "state"},
+        {data: "options"},
       ],
       order: [[0, "desc"]],
     });

@@ -46,6 +46,13 @@ class transporter_controller extends Controller
 
     $data = $t->listing();
 
+    foreach ($data as $k => $v){
+      $data[$k]['options'] = '
+        <a class="btn btn-icon btn-sm btn-primary" href="'.HTTP_SERVER.'transporter/'.$v['idtransporter'].'"><i class="ri-edit-2-fill"></i></a>
+        <a class="btn btn-icon btn-sm btn-danger" href="#" onclick="deleteTransporter('.$v['idtransporter'].')"><i class="ri-delete-bin-2-fill"></i></a>
+      ';
+    }
+
     echo json_encode(
       [
         "recordsTotal" => sizeof($data),
