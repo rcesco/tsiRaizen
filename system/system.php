@@ -18,7 +18,7 @@
 
     private function setUrl(){
       $param = substr(REDIRECT_URL, 1);
-      $url = (!empty($param) ? $param : 'user');
+      $url = (!empty($param) ? $param : 'login');
 
       $this->_url = $url;
     }

@@ -32,7 +32,7 @@ require_once VIEW . 'header.php';
                 </div>
                 <div class="col-md-3">
                   <div>
-                    <label for="username" class="form-label">Usuário</label>
+                    <label for="username" class="form-label">Login</label>
                     <input type="text" class="form-control" id="username">
                   </div>
                 </div>
@@ -52,6 +52,14 @@ require_once VIEW . 'header.php';
                   <div>
                     <label for="cellphone" class="form-label">Celular</label>
                     <input type="text" class="form-control" id="cellphone">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div>
+                    <label for="profile" class="form-label">Perfil</label>
+                    <select class="js-example-basic-multiple col-sm-12" id="profile" name="operationTypes"
+                      multiple="multiple">
+                    </select>
                   </div>
                 </div>
               </div>

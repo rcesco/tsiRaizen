@@ -1,4 +1,5 @@
 <?php
+
 class Audit_Model
 {
   private $id;
@@ -59,9 +60,9 @@ class Audit_Model
 
   public function store()
   {
-    $table = '';
-    $statement = '';
-    $params = [];
+    $table = 'audit';
+    $statement = 'description = ?';
+    $params = [$this->description];
 
     $q = model::insert($table, $statement, $params);
 
@@ -75,23 +76,38 @@ class Audit_Model
 
   public function select()
   {
-    $fields = '';
-    $table = '';
-    $statement = '';
-    $params = [];
+    $fields = '*';
+    $table = 'audit';
+    $statement = 'where idaudit = ?';
+    $params = [$this->id];
 
     $q = model::select($fields, $table, $statement, $params);
 
-    while ($r = $q->fetch(PDO::FETCH_ASSOC)) {
-    }
+    $res = [];
 
+    while ($r = $q->fetch(PDO::FETCH_ASSOC)) {
+      $this->id = $r['idaudit'];
+      $this->description = $r['description'];
+      $this->created_at = $r['created_at'];
+      $this->update_at = $r['updated_at'];
+      $this->active = $r['active'];
+
+      $res = [
+        'idaudit' => $r['idaudit'],
+        'description' => $r['description'],
+        'created_at' => $r['created_at'],
+        'update_at' => $r['updated_at'],
+        'active' => $r['active'],
+      ];
+    }
+    return $res;
   }
 
   public function listing()
   {
-    $fields = '';
-    $table = '';
-    $statement = '';
+    $fields = '*';
+    $table = 'audit';
+    $statement = 'where 1';
     $params = [];
 
     $q = model::select($fields, $table, $statement, $params);
@@ -99,17 +115,23 @@ class Audit_Model
     $res = [];
 
     while ($r = $q->fetch(PDO::FETCH_ASSOC)) {
-      $res[] = [];
+      $res[] = [
+        'idaudit' => $r['idaudit'],
+        'description' => $r['description'],
+        'created_at' => $r['created_at'],
+        'update_at' => $r['updated_at'],
+        'active' => $r['active'],
+      ];
     }
     return $res;
   }
 
   public function update()
   {
-    $table = '';
-    $statement = '';
-    $where = '';
-    $params = [];
+    $table = 'audit';
+    $statement = 'description = ?, updated_at = CURRENT_TIMESTAMP';
+    $where = 'where idaudit = ?';
+    $params = [$this->description, $this->id];
 
     $q = model::update($table, $statement, $params, $where);
 
@@ -123,9 +145,9 @@ class Audit_Model
 
   public function delete()
   {
-    $table = '';
-    $statement = '';
-    $params = [];
+    $table = 'audit';
+    $statement = 'where idaudit = ?';
+    $params = [$this->id];
 
     $q = model::delete($table, $statement, $params);
 
