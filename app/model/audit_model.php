@@ -67,7 +67,7 @@ class Audit_Model
     $q = model::insert($table, $statement, $params);
 
     if ($q) {
-      return true;
+      return model::lastId('audit');
     } else {
       return false;
     }
@@ -95,8 +95,6 @@ class Audit_Model
       $res = [
         'idaudit' => $r['idaudit'],
         'description' => $r['description'],
-        'created_at' => $r['created_at'],
-        'update_at' => $r['updated_at'],
         'active' => $r['active'],
       ];
     }
@@ -129,15 +127,17 @@ class Audit_Model
   public function update()
   {
     $table = 'audit';
-    $statement = 'description = ?, updated_at = CURRENT_TIMESTAMP';
+    $statement = 'description = ?, active = ?, updated_at = CURRENT_TIMESTAMP';
     $where = 'where idaudit = ?';
-    $params = [$this->description, $this->id];
+    $params = [$this->description, $this->active, $this->id];
 
     $q = model::update($table, $statement, $params, $where);
 
     if ($q) {
+      http_response_code(200);
       return true;
     } else {
+      http_response_code(400);
       return false;
     }
 
