@@ -66,9 +66,36 @@ require_once VIEW . 'header.php';
               <div class="col-md-12">
                 <div class="d-flex flex-wrap gap-2">
                   <button type="button" class="btn btn-primary btn-icon btn-lg" data-bs-toggle="modal"
-                          data-bs-target="#modalQuestion">
+                          data-bs-target="#modalQuestion" id="btnOpenModalQuestion" onclick="getQuestion(null)">
                     <i class="ri ri-clapperboard-line"></i>
                   </button>
+                </div>
+              </div>
+              <p class="text-muted"></p>
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Questões</h4>
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-striped">
+                      <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Atendimento</th>
+                        <th scope="col">Referência</th>
+                        <th scope="col">Pilar</th>
+                        <th scope="col">Módulo</th>
+                        <th scope="col">Conceito</th>
+                        <th scope="col">% Nota</th>
+                        <th scope="col"></th>
+                      </tr>
+                      </thead>
+                      <tbody id="tblQuestions">
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -86,14 +113,14 @@ require_once VIEW . 'header.php';
                       <div class="col-md-1">
                         <div>
                           <label for="name" class="form-label">ID</label>
-                          <input type="text" class="form-control" id="idaudit" onchange="handleFormQuestionValues(this)"
+                          <input type="text" class="form-control" id="idaudit_question" onchange="handleFormQuestionValues(this)"
                                  value="<?= isset($id) ? $id : '' ?>" required readonly>
                         </div>
                       </div>
                       <div class="col-md-11">
                         <div>
                           <label for="name" class="form-label">Descrição</label>
-                          <input type="text" class="form-control" id="description"
+                          <input type="text" class="form-control" id="descriptionQuestion"
                                  onchange="handleFormQuestionValues(this)"
                                  required>
                         </div>
@@ -146,7 +173,7 @@ require_once VIEW . 'header.php';
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="btnCloseModalQuestion">Fechar</button>
                     <button type="submit" class="btn btn-primary">Cadastrar</button>
                   </div>
               </div>
@@ -193,13 +220,14 @@ require_once VIEW . 'footer.php';
 
   function handleSetFormValues(i, v) {
     let ipt = document.getElementById(i);
-    if (ipt.type === 'checkbox') {
-      ipt.checked = v;
-    } else {
-      ipt.value = v;
+    if(ipt !== null){
+      if (ipt.type === 'checkbox') {
+        ipt.checked = v;
+      } else {
+        ipt.value = v;
+      }
+      handleFormValues(ipt);
     }
-
-    handleFormValues(ipt);
   }
 
   function store() {
@@ -237,8 +265,10 @@ require_once VIEW . 'footer.php';
       const res = response.data;
 
       for (let key in res) {
+        console.log(key, res[key]);
         handleSetFormValues(key, res[key]);
       }
+      listQuestions();
 
     }).catch(function (error) {
       alert('Erro: ' + error);
@@ -256,16 +286,18 @@ require_once VIEW . 'footer.php';
 
   function handleSetFormQuestionValues(i, v) {
     let ipt = document.getElementById(i);
-    if (ipt.type === 'checkbox') {
-      ipt.checked = v;
-    } else {
-      ipt.value = v;
+    if(ipt !== null) {
+      if (ipt.type === 'checkbox') {
+        ipt.checked = v;
+      } else {
+        ipt.value = v;
+      }
+      handleFormQuestionValues(ipt);
     }
-    handleFormQuestionValues(ipt);
   }
 
   function storeQuestion() {
-
+    formQuestionValues = {...formQuestionValues, 'idaudit': id};
     const options = {
       method: 'post',
       url: SERVER + 'auditQuestion/store',
@@ -277,12 +309,88 @@ require_once VIEW . 'footer.php';
 
     axios.request(options).then(function (response) {
       const res = response.data;
-      if (res.id) {
-        getAudit(res.id);
-      }
+      listQuestions(id);
       alert(res.msg);
+      document.getElementById('btnCloseModalQuestion').click();
+
+      for (let k in formQuestionValues){
+        handleSetFormQuestionValues(k, '');
+      }
+
     }).catch(function (error) {
       alert('Erro: ' + error);
     });
+  }
+
+  function listQuestions(){
+    const options = {
+      method: 'post',
+      url: SERVER + 'auditQuestion/listing',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {id}
+    };
+
+    axios.request(options).then(function (response) {
+      const res = response.data;
+      const tbl = document.getElementById('tblQuestions');
+      let htmlQuestions = '';
+      for(let key in res){
+        htmlQuestions += `
+          <tr>
+            <td>${res[key].idaudit_question}</td>
+            <td>${res[key].description}</td>
+            <td>${res[key].answering}</td>
+            <td>${res[key].reference}</td>
+            <td>${res[key].pillar}</td>
+            <td>${res[key].module}</td>
+            <td>${res[key].concept}</td>
+            <td>${res[key].percent_note}</td>
+            <td>${res[key].options}</td>
+          </tr>
+        `;
+      }
+
+      tbl.innerHTML = htmlQuestions;
+
+    }).catch(function (error) {
+      alert('Erro: ' + error);
+    });
+  }
+
+  function getQuestion(idQuestion){
+    console.log(idQuestion);
+    if(id !== null){
+      const options = {
+        method: 'post',
+        url: SERVER + 'auditQuestion/select',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: {id: idQuestion}
+      };
+
+      axios.request(options).then(function (response) {
+        const res = response.data;
+
+        for (let key in res) {
+          if(key === 'description'){
+            handleSetFormQuestionValues('descriptionQuestion', res[key]);
+          }else{
+            handleSetFormQuestionValues(key, res[key]);
+          }
+        }
+        document.getElementById('btnOpenModalQuestion').click();
+
+      }).catch(function (error) {
+        alert('Erro: ' + error);
+      });
+    }
+
+  }
+
+  function deleteQuestion(){
+
   }
 </script>

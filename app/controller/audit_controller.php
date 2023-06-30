@@ -84,4 +84,8 @@ class audit_controller extends Controller
   {
 
   }
+
+  public function test(){
+    $this->view('audit/test');
+  }
 }

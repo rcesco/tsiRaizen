@@ -5,12 +5,14 @@ class AuditQuestion_Model
   private $id;
   private $idaudit;
   private $description;
-  private $asnwering;
+  private $answering;
   private $reference;
   private $pillar;
   private $module;
   private $concept;
   private $percent_note;
+  private $created_at;
+  private $updated_at;
 
   public function getId()
   {
@@ -42,14 +44,14 @@ class AuditQuestion_Model
     $this->description = $description;
   }
 
-  public function getAsnwering()
+  public function getAnswering()
   {
-    return $this->asnwering;
+    return $this->answering;
   }
 
-  public function setAsnwering($asnwering)
+  public function setAnswering($answering)
   {
-    $this->asnwering = $asnwering;
+    $this->answering = $answering;
   }
 
   public function getReference()
@@ -102,6 +104,26 @@ class AuditQuestion_Model
     $this->percent_note = $percent_note;
   }
 
+  public function getCreatedAt()
+  {
+    return $this->created_at;
+  }
+
+  public function setCreatedAt($created_at)
+  {
+    $this->created_at = $created_at;
+  }
+
+  public function getUpdatedAt()
+  {
+    return $this->updated_at;
+  }
+
+  public function setUpdatedAt($updated_at)
+  {
+    $this->updated_at = $updated_at;
+  }
+
   public function store()
   {
     $table = 'audit_question';
@@ -109,7 +131,7 @@ class AuditQuestion_Model
       description = ?, answering = ?, reference = ?, pillar = ?, module = ?, concept = ?, percent_note = ?, idaudit = ?
     ';
     $params = [
-      $this->description, $this->asnwering, $this->reference, $this->pillar, $this->module, $this->concept,
+      $this->description, $this->answering, $this->reference, $this->pillar, $this->module, $this->concept,
       $this->percent_note, $this->idaudit
     ];
 
@@ -136,7 +158,7 @@ class AuditQuestion_Model
 
     while ($r = $q->fetch(PDO::FETCH_ASSOC)) {
       $this->description = $r['description'];
-      $this->asnwering = $r['asnwering'];
+      $this->answering = $r['answering'];
       $this->reference = $r['reference'];
       $this->pillar = $r['pillar'];
       $this->module = $r['module'];
@@ -149,7 +171,7 @@ class AuditQuestion_Model
       $res = [
         'idaudit_question' => $r['idaudit_question'],
         'description' => $r['description'],
-        'asnwering' => $r['asnwering'],
+        'answering' => $r['answering'],
         'reference' => $r['reference'],
         'pillar' => $r['pillar'],
         'module' => $r['module'],
@@ -167,8 +189,8 @@ class AuditQuestion_Model
   {
     $fields = '*';
     $table = 'audit_question';
-    $statement = 'where 1';
-    $params = [];
+    $statement = 'where idaudit = ?';
+    $params = [$this->idaudit];
 
     $q = model::select($fields, $table, $statement, $params);
 
@@ -178,7 +200,7 @@ class AuditQuestion_Model
       $res[] = [
         'idaudit_question' => $r['idaudit_question'],
         'description' => $r['description'],
-        'asnwering' => $r['asnwering'],
+        'answering' => $r['answering'],
         'reference' => $r['reference'],
         'pillar' => $r['pillar'],
         'module' => $r['module'],
@@ -198,7 +220,7 @@ class AuditQuestion_Model
     $statement = 'description = ?, answering = ?, reference = ?, pillar = ?, module = ?, concept = ?, percent_note = ?, idaudit = ?';
     $where = 'where idaudit_question = ?';
     $params = [
-      $this->description, $this->asnwering, $this->reference, $this->pillar, $this->module, $this->concept,
+      $this->description, $this->answering, $this->reference, $this->pillar, $this->module, $this->concept,
       $this->percent_note, $this->idaudit, $this->id
     ];
 
