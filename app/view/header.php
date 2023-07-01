@@ -175,6 +175,9 @@
                 <li class="nav-item">
                   <a href="/transporter" class="nav-link" data-key="t-ecommerce"> Transportadora </a>
                 </li>
+                <li class="nav-item">
+                  <a href="/audit" class="nav-link" data-key="t-ecommerce"> Auditoria </a>
+                </li>
               </ul>
             </div>
           </li>

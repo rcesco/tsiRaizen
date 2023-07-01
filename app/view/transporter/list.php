@@ -7,6 +7,9 @@ require_once VIEW . 'header.php';
     <div class="card">
       <div class="card-header">
         <h5 class="card-title mb-0">Transportadores Cadastrados</h5>
+        <div class="flex-shrink-0">
+          <a href="<?=HTTP_SERVER?>transporter/store" class="btn btn-primary"><i class="ri-add-line"></i> Novo Cadastro </a>
+        </div>
       </div>
       <div class="card-body">
         <table class="table table-bordered dt-responsive nowrap table-striped align-middle" id="transporterTable">
