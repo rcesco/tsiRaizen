@@ -84,4 +84,24 @@ require_once VIEW . 'footer.php';
     });
   }
 
+  function deleteAudit(idAudit) {
+    const options = {
+      method: 'post',
+      url: SERVER + 'audit/delete',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {id: idAudit}
+    };
+
+    axios.request(options).then(function (response) {
+      const res = response.data;
+      alert(res.msg);
+      generateDatatable();
+    }).catch(function (error) {
+      console.log(error);
+      alert('Auditoria Não pode ser deletada, verifique se há questões associadas ou auditorias realizadas!');
+    });
+  }
+
 </script>

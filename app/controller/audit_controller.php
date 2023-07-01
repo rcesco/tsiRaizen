@@ -80,9 +80,16 @@ class audit_controller extends Controller
     echo json_encode($data);
   }
 
-  public function delete()
-  {
+  public function delete(){
+    $post = file_get_contents("php://input");
+    $post = json_decode($post, true);
 
+    $a = new Audit_Model();
+    $a->setId($post['id']);
+
+    $res = $a->delete();
+
+    echo json_encode($res ? ['msg' => 'Auditoria Deleteda!'] :['msg' => 'Auditoria não pode ser Deleteda!']);
   }
 
   public function test(){

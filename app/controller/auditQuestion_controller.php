@@ -72,7 +72,9 @@ class auditQuestion_controller extends Controller
     $a = new AuditQuestion_Model();
     $a->setId($post['id']);
 
-    echo json_encode($a->delete());
+    $res = $a->delete();
+
+    echo json_encode($res ? ['msg' => 'Questão Deleteda!'] :['msg' => 'Questão não pode ser Deleteda!']);
   }
 
 

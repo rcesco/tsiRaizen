@@ -315,9 +315,11 @@ require_once VIEW . 'footer.php';
         const res = response.data;
         listQuestions(id);
         document.getElementById('btnCloseModalQuestion').click();
-
+        alert(res.msg);
         for (let k in formQuestionValues) {
-          handleSetFormQuestionValues(k, '');
+          if (k !== 'idaudit') {
+            handleSetFormQuestionValues(k, '');
+          }
         }
       }
     ).catch(function (error) {
@@ -398,7 +400,22 @@ require_once VIEW . 'footer.php';
 
   }
 
-  function deleteQuestion() {
+  function deleteQuestion(idQuestion) {
+    const options = {
+      method: 'post',
+      url: SERVER + 'auditQuestion/delete',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {id: idQuestion}
+    };
 
+    axios.request(options).then(function (response) {
+      const res = response.data;
+      alert(res.msg);
+      listQuestions();
+    }).catch(function (error) {
+      alert('Erro: ' + error);
+    });
   }
 </script>
