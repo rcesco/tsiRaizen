@@ -28,7 +28,7 @@ class audit_controller extends Controller
 
     if ($values) {
       $a->setDescription($values['description']);
-      if ($values['idaudit'] > 0) {
+      if (isset($values['idaudit']) && $values['idaudit'] > 0) {
         $a->setId($values['idaudit']);
         $a->setActive($values['active']);
         $a->update();

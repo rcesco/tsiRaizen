@@ -23,11 +23,11 @@ class auditQuestion_controller extends Controller
       $a->setConcept($values['concept']);
       $a->setPercentNote($values['percent_note']);
       $a->setIdaudit($values['idaudit']);
-      if (isset($values['idaudit_question']) > 0) {
+      if (isset($values['idaudit_question']) && $values['idaudit_question'] != '') {
         $a->setId($values['idaudit_question']);
         $a->update();
         echo json_encode(['msg' => 'Questão Alterada Com Sucesso!']);
-      } else if (isset($values['description'])) {
+      } else if (isset($values['descriptionQuestion'])) {
         $id = $a->store();
         echo json_encode(['id' => $id, 'msg' => 'Questão Cadastrada Com Sucesso!']);
       }

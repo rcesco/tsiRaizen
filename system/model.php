@@ -83,9 +83,11 @@ class model extends db
       return model::$query;
    }
 
-   public static function lastId($table, $params = null)
+   public static function lastId($table, $params = null, $alias = null)
    {
-      $prep = "SELECT MAX( ID ) as ID FROM " . $table;
+      $prep = $alias == null
+        ? "SELECT MAX( ID ) as ID FROM " . $table
+        : "SELECT MAX( ".$alias." ) as ID FROM " . $table;
       //var_dump($prep);
       //var_dump($params);
       model::prepExec($prep, $params);

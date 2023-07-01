@@ -67,7 +67,7 @@ class Audit_Model
     $q = model::insert($table, $statement, $params);
 
     if ($q) {
-      return model::lastId('audit');
+      return model::lastId('audit', null, 'idaudit' );
     } else {
       return false;
     }
