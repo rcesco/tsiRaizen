@@ -93,4 +93,31 @@ class transporter_controller extends Controller
   {
 
   }
+
+  public function listingModal(){
+    $post = file_get_contents("php://input");
+    $post = json_decode($post, true);
+
+    $t = new Transporter_Model();
+
+    $data = $t->listing();
+
+    foreach ($data as $k => $v) {
+      $data[$k]['options'] = '
+        <a class="btn btn-icon btn-xs btn-secondary" href="#" data-id="'.$v['idtransporter'].'" 
+          data-name="'.$v['name'].'" onclick="returnTransporter(this)">
+          <i class="ri-check-double-fill"></i>
+        </a>
+      ';
+    }
+
+    echo json_encode(
+      [
+        "recordsTotal" => sizeof($data),
+        "recordsFiltered" => sizeof($data),
+        "data" => $data
+      ]
+    );
+
+  }
 }
