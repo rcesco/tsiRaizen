@@ -1,25 +1,26 @@
 <?php
 
-namespace model;
-
 class User_Model
 {
-  private $id;
+  private $iduser;
   private $name;
-  private $cellphone;
   private $username;
   private $email;
+  private $cellphone;
   private $password;
-  private $access;
+  private $idprofile;
+  private $create_at;
+  private $updated_at;
+  private $active;
 
-  public function getId()
+  public function getIdUser()
   {
-    return $this->id;
+    return $this->iduser;
   }
 
-  public function setId($id)
+  public function setIdUser($iduser)
   {
-    $this->id = $id;
+    $this->iduser = $iduser;
   }
 
   public function getUsername()
@@ -42,6 +43,16 @@ class User_Model
     $this->email = $email;
   }
 
+  public function getCellphone()
+  {
+    return $this->cellphone;
+  }
+
+  public function setCellphone($cellphone)
+  {
+    $this->cellphone = $cellphone;
+  }
+
   public function getPassword()
   {
     return $this->password;
@@ -52,21 +63,51 @@ class User_Model
     $this->password = $password;
   }
 
-  public function getAccess()
+  public function getIdprofile()
   {
-    return $this->access;
+    return $this->idprofile;
   }
 
-  public function setAccess($access)
+  public function setIdprofile($idprofile)
   {
-    $this->access = $access;
+    $this->idprofile = $idprofile;
+  }
+  
+  public function getActive()
+  {
+    return $this->active;
+  }
+
+  public function setActive($active)
+  {
+    $this->active = $active;
+  }
+  
+  public function getCreatedAt()
+  {
+    return $this->created_at;
+  }
+
+  public function setCreatedAt($created_at)
+  {
+    $this->created_at = $created_at;
+  }
+    
+  public function getUpdatedAt()
+  {
+    return $this->updated_at;
+  }
+
+  public function setUpdatedAt($updated_at)
+  {
+    $this->updated_at = $updated_at;
   }
 
   public function store()
   {
     $table = 'user';
-    $statement = 'username = ?, email = ?, password = ?, access = ?';
-    $params = [$this->username, $this->email, $this->password, $this->access];
+    $statement = 'name = ?, username = ?, email = ?, cellphone = ?, password = ?, Idprofile = ?, created_at = ?, updated_at = ?';
+    $params = [$this->name, $this->username, $this->email, $this->cellphone, $this->password, $this->idprofile, $this->created_at, $this->updated_at ];
 
     $q = model::insert($table, $statement, $params);
 
@@ -88,9 +129,14 @@ class User_Model
     $q = model::select($fields, $table, $statement, $params);
 
     while ($r = $q->fetch(PDO::FETCH_ASSOC)) {
+      $this->name = $r['name'];
       $this->username = $r['username'];
       $this->email = $r['email'];
-      $this->access = $r['access'];
+      $this->cellphone = $r['cellphone'];
+      $this->idprofile = $r['idprofile'];
+      $this->created_at = $r['created_at'];
+      $this->updated_at = $r['updated_at'];
+      $this->active = $r['active'];
     }
 
   }
@@ -99,7 +145,7 @@ class User_Model
   {
     $fields = '*';
     $table = 'user';
-    $statement = 'where 1';
+    $statement = 'where 1 = 1';
     $params = [];
 
     $q = model::select($fields, $table, $statement, $params);
@@ -111,6 +157,11 @@ class User_Model
         'name' => $r['name'],
         'username' => $r['username'],
         'email' => $r['email'],
+        'cellphone' => $r['cellphone'],
+        'idprofile' => $r['idprofile'],
+        'created_at' => $r['created_at'],
+        'updated_at' => $r['updated_at'],
+        'active' => $r['active'],
       ];
     }
     return $res;
@@ -119,9 +170,9 @@ class User_Model
   public function update()
   {
     $table = 'user';
-    $statement = 'username = ?, name = ?, password = ?, email = ? ';
     $where = 'where id = ?';
-    $params = [$this->username, $this->name, $this->password, $this->email, $this->id];
+    $statement = 'name = ?, username = ?, email = ?, cellphone = ?, password = ?, Idprofile = ?, updated_at = ?, active = ?';
+    $params = [$this->name, $this->username, $this->email, $this->cellphone, $this->password, $this->idprofile, $this->updated_at, $this->active, $this->id ];
 
     $q = model::update($table, $statement, $params, $where);
 

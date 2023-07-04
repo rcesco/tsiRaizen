@@ -227,4 +227,3 @@ const ListPermissions = [
   },
 ];
 
-export { ListPermissions };
