@@ -8,6 +8,11 @@ require_once VIEW . 'header.php';
       <div class="card-header">
         <h5 class="card-title mb-0">Usuários</h5>
       </div>
+      <div style="margin-left: auto; margin-right: 18px; margin-top: 6px;">
+        <a href="<?=HTTP_SERVER?>user/store" class="btn btn-primary">
+          Novo Cadastro
+        </a>
+      </div>
       <div class="card-body">
         <table class="table table-bordered dt-responsive nowrap table-striped align-middle" id="userTable">
           <thead>

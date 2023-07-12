@@ -12,12 +12,12 @@
 
 	$post = file_get_contents("php://input");
 	$post = json_decode($post, true);
-	//if($ctrl->VerifyLogin() || REDIRECT_URL == '/login/setAccess'){
+	if($ctrl->VerifyLogin() || REDIRECT_URL == '/user/login' || REDIRECT_URL == '/user/setAccess'){
 		$start = new System(REDIRECT_URL);
 		$start->run();
-	/*}else{
+	}else{
 		$ctrl->view('user/login');
-	}*/
+	}
 
 
 ?>

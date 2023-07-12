@@ -29,20 +29,21 @@ class Controller extends System
   }
 
   public function VerifyLogin(){
-    if ((isset($_SESSION['id'])) || (isset($_SESSION['token']))){
-      if ($this->checkAccess($_SESSION['id'], $_SESSION['token'])){
-        return true;
-      }else{
-        return false;
+    if(isset($_SESSION['username']) && isset($_SESSION['password'])){
+      $fields = ' * ';
+      $table = 'user';
+      $statement = 'where username = ? and password = ?';
+      $params = [$_SESSION['username'], $_SESSION['password']];
+
+      $q = model::select($fields, $table, $statement, $params);
+
+      $count = $q->rowCount();
+
+      if ($count >= 1) {
+        return TRUE;
+      } else {
+        return FALSE;
       }
-    }else if((isset($_COOKIE['id'])) || (isset($_COOKIE['token']))){
-      if ($this->checkAccess($_COOKIE['id'], $_COOKIE['token'])){
-        return true;
-      }else{
-        return false;
-      }
-    }else{
-      return false;
     }
   }
 

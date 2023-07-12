@@ -80,14 +80,14 @@
                 <img class="rounded-circle header-profile-user" src="<?= DIR_ASSETS ?>images/users/avatar-1.jpg"
                      alt="Header Avatar">
                 <span class="text-start ms-xl-2">
-                  <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text">Anna Adame</span>
-                  <span class="d-none d-xl-block ms-1 fs-13 text-muted user-name-sub-text">Founder</span>
+                  <span class="d-none d-xl-inline-block ms-1 fw-semibold user-name-text"><?=$_SESSION['name']?></span>
+
                 </span>
               </span>
             </button>
             <div class="dropdown-menu dropdown-menu-end">
-              <h6 class="dropdown-header">Welcome Anna!</h6>
-              <a class="dropdown-item" href="auth-logout-basic.html">
+              <h6 class="dropdown-header">Bem Vindo(a) <?=$_SESSION['name']?> !</h6>
+              <a class="dropdown-item" href="<?=HTTP_SERVER?>user/logout">
                 <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
                 <span class="align-middle" data-key="t-logout">Logout</span>
               </a>
