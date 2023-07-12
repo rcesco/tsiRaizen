@@ -42,6 +42,18 @@ require_once VIEW . 'header.php';
                   </div>
                 </div>
               </div>
+              <div class="col-md-5">
+                <div>
+                  <label for="name" class="form-label">Tipo De Checklist</label>
+                  <div class="input-group">
+                    <input type="hidden" class="form-control" id="idaudit" onchange="handleFormValues(this)" required>
+                    <input type="text" class="form-control" id="auditName" onchange="handleFormValues(this)" required>
+                    <button class="btn btn-secondary" type="button" onclick="openModalAudit()">
+                      <i class="ri-search-2-fill"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="row gy-4">
               <p class="text-muted"></p>
@@ -105,6 +117,7 @@ require_once VIEW . 'header.php';
 <?php
 require_once VIEW . 'footer.php';
 require_once VIEW . 'modal/transporter.php';
+require_once VIEW . 'modal/audit.php';
 ?>
 
 <script>
@@ -198,10 +211,22 @@ require_once VIEW . 'modal/transporter.php';
     $('#modalTransporter').modal('show');
   }
 
+  function openModalAudit(){
+    generateDatatableAuditModal();
+    $('#modalAudit').modal('show');
+  }
+
   function returnTransporter(btnData){
     let dataset = btnData.dataset;
     document.getElementById('idtransporter').value = dataset.id;
     document.getElementById('transporterName').value = dataset.name;
     $('#modalTransporter').modal('hide')
+  }
+
+  function returnAudit(btnData){
+    let dataset = btnData.dataset;
+    document.getElementById('idaudit').value = dataset.id;
+    document.getElementById('auditName').value = dataset.name;
+    $('#modalAudit').modal('hide')
   }
 </script>

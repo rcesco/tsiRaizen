@@ -95,4 +95,31 @@ class audit_controller extends Controller
   public function test(){
     $this->view('audit/test');
   }
+
+  public function listingModal(){
+    $post = file_get_contents("php://input");
+    $post = json_decode($post, true);
+
+    $a = new Audit_Model();
+
+    $data = $a->listing();
+
+    foreach ($data as $k => $v) {
+      $data[$k]['options'] = '
+        <a class="btn btn-icon btn-xs btn-secondary" href="#" data-id="'.$v['idaudit'].'" 
+          data-name="'.$v['description'].'" onclick="returnAudit(this)">
+          <i class="ri-check-double-fill"></i>
+        </a>
+      ';
+    }
+
+    echo json_encode(
+      [
+        "recordsTotal" => sizeof($data),
+        "recordsFiltered" => sizeof($data),
+        "data" => $data
+      ]
+    );
+
+  }
 }
